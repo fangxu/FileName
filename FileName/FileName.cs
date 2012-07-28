@@ -57,12 +57,16 @@ namespace FileName
         {
             string patternNew = textBoxNewName.Text;
             //string patternOld = textBoxOldName.Text;
+            if (patternNew == "")
+            {
+                MessageBox.Show("NewName is null.please input the regular expression.", "no name");
+                return;
+            }
             string replace = textBoxReplace.Text;
-            //Regex rOld = new Regex(patternOld, RegexOptions.Compiled);
-            Regex rNew = new Regex(patternNew, RegexOptions.Compiled);
-
+            //Regex rOld = new Regex(patternOld, RegexOptions.Compiled); 
             try
             {
+                Regex rNew = new Regex(patternNew, RegexOptions.Compiled);
                 for (int i = 0; i < listViewFiles.Items.Count; i++)
                 {
                     //if (rOld.Match(listViewFiles.Items[i].Text).Success)
@@ -95,6 +99,7 @@ namespace FileName
                 {
                     MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                listViewFiles.Items[i].Text = listViewFiles.Items[i].SubItems[1].Text;
             }
             EnableUI(true);
         }
